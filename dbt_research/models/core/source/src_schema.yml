@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: udemy_data
+    database: udemy_data
+    tables:
+    - name: courses
+      columns:
+      - name: course_url
+        test:
+        - not null
+    - name: ud_courses
+      columns:
+      - name: url
+        test:
+        - not null   
+    - name: ud_instructors
+      columns:
+      - name: id
+        test:
+        - not null    
+    - name: topics
+      columns:
+      - name: topic_id
+        test:
+        - not null    
+    - name: authors
+      columns:
+      - name: author_id
+        test:
+        - not null 
