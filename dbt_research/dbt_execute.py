@@ -14,7 +14,9 @@ if True:
     run_results.close()
 
     message = {"default": "default"}
-    client = boto3.client('sns')
+    client = boto3.client(
+            'sns',
+            region_name=os.environ.get('AWS_REGION'))
     arn = os.environ.get('AWS_SNS_TOPIC_ARN')
     response = client.publish(
         TargetArn=arn,
