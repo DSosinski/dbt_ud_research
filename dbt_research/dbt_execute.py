@@ -7,7 +7,9 @@ from datetime import datetime
 subprocess.call("dbt --log-format=json test")  
 
 if True:
-    run_results = open('target/run_results.json', "r")
+    #run_results = open('target/run_results.json', "r")
+    run_results = open('/usr/app/dbt/dbt_ud_research/dbt_research/target/run_results.json', "r")
+    
     run_results_data = json.loads(run_results.read())
     run_results.close()
 
