@@ -4,7 +4,7 @@ import boto3
 import json
 from datetime import datetime
 
-#subprocess.call("dbt --log-format=json test")  
+subprocess.call("dbt --log-format=json test")  
 
 if True:
     run_results = open('target/run_results.json', "r")
