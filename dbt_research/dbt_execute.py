@@ -1,17 +1,24 @@
-#import subprocess
+import subprocess
 import os
 import boto3
 import json
 from datetime import datetime
 
-#subprocess.call("dbt --log-format=json test")  
+run_type = 'run'
+
+subprocess.run(["dbt", "--log-format=json", run_type])
 
 if True:
-    #run_results = open('target/run_results.json', "r")
-    run_results = open('/usr/app/dbt/dbt_ud_research/dbt_research/target/run_results.json', "r")
+    run_results = open('./target/run_results.json', "r")
     
     run_results_data = json.loads(run_results.read())
     run_results.close()
+    email_message = 'DBT ' + run_type + '\n'
+
+    if 'results' in run_results_data:
+        for result in run_results_data['results']:
+            #email_message = email_message + json.dumps(result['status'])
+            email_message = email_message + ' - ' + str(result['unique_id']) + ' => ' + str(result['status']) + '\n'
 
     message = {"default": "default"}
     client = boto3.client(
@@ -21,8 +28,8 @@ if True:
     response = client.publish(
         TargetArn=arn,
         Message=json.dumps({'default': json.dumps(message),
-                            'email': json.dumps(run_results_data, indent=2)
+                            'email': email_message
                             }),
-        Subject='DUR run on '+ datetime.today().isoformat(),
+        Subject='DBT Udemy run on '+ datetime.today().isoformat(),
         MessageStructure='json'
     )
