@@ -35,14 +35,14 @@
 select distinct 
     stg_courses.url,
     ud_courses.type,
-    ud_courses.id,
+    max(ud_courses.id) id,
     max(ud_courses.title) title,
     max(ud_courses.duration) duration,
     max(ud_courses.published) published,
     max(ud_courses.is_paid) is_paid
 from stg_courses
 join ud_courses on stg_courses.url = ud_courses.url and stg_courses.type = ud_courses.type
-group by stg_courses.url,ud_courses.type,ud_courses.id
+group by stg_courses.url,ud_courses.type
 union 
 select distinct 
     stg_courses.url,
