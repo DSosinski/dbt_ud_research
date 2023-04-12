@@ -12,6 +12,7 @@ with cme as (
 select 
     inst.instructor_name,
     count(distinct cme.url) course_count,
+    sum(cme.p15) p15,
     sum(cme.p14) p14,
     sum(cme.p13) p13,
     sum(cme.p12) p12,

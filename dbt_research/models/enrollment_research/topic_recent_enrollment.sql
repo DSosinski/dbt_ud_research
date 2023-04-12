@@ -16,6 +16,7 @@ select
     topic,
     count(distinct url) course_count,
     sum(students) students,
+    sum(prev_students) prev_students,
     max(students) max_studends,
     round(cast(
             cast(max(students) as double)
@@ -27,7 +28,8 @@ from (
     course_topics.url,
     course_topics.topic,
     course_topics.is_paid,
-    c_recent.students - c_before.students students
+    c_recent.students - c_before.students students,
+    c_before.students - c_prev.students prev_students
     from course_topics
     join course_students c_recent on c_recent.url = course_topics.url and c_recent.batch_no = 
     (
@@ -43,6 +45,16 @@ from (
     join course_students c_before on c_before.url = course_topics.url and c_before.batch_no = 
     (
     select cast(max(batch_no)-1 as varchar) batch_no  
+        from (
+            select 
+            url,
+            cast(batch_no as integer) batch_no
+            from udemy_data_dev.core_course_students
+        )
+    )
+    left join course_students c_prev on c_prev.url = course_topics.url and c_prev.batch_no = 
+    (
+    select cast(max(batch_no)-2 as varchar) batch_no  
         from (
             select 
             url,
