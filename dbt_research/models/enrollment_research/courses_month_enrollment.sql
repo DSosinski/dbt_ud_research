@@ -30,7 +30,8 @@ with main_course_list as (
 )
 select 
     main_course_list.url,
-    c16.students current_students,
+    c17.students current_students,
+    c17.students - c16.students P16,
     c16.students - c15.students P15,
     c15.students - c14.students P14,
     c14.students - c13.students P13,
@@ -68,3 +69,4 @@ left join course_students c13 on c13.url = main_course_list.url and c13.batch_no
 left join course_students c14 on c14.url = main_course_list.url and c14.batch_no = '14'
 left join course_students c15 on c15.url = main_course_list.url and c15.batch_no = '15'
 left join course_students c16 on c16.url = main_course_list.url and c16.batch_no = '16'
+left join course_students c17 on c17.url = main_course_list.url and c17.batch_no = '17'

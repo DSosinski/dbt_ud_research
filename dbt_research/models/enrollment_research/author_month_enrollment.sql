@@ -11,7 +11,9 @@ with cme as (
 )
 select 
     inst.instructor_name,
+    inst.instructor_url,
     count(distinct cme.url) course_count,
+    sum(cme.p16) p16,
     sum(cme.p15) p15,
     sum(cme.p14) p14,
     sum(cme.p13) p13,
@@ -29,4 +31,4 @@ select
     sum(cme.p1) p1
 from inst
 left join cme on cme.url = inst.course_url
-group by inst.instructor_name
+group by inst.instructor_name, inst.instructor_url
