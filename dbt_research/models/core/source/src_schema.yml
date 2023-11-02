@@ -29,3 +29,8 @@ sources:
       - name: author_id
         test:
         - not null 
+    - name: ud_topics
+      columns:
+      - name: id
+        test:
+        - not null 

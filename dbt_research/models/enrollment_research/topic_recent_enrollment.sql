@@ -1,3 +1,8 @@
+{{ config(
+    materialized='table',
+    format='parquet'
+) }}
+
 with course_topics as (
     select 
         url,

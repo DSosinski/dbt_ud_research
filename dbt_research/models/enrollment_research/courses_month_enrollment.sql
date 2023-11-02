@@ -1,3 +1,8 @@
+{{ config(
+    materialized='table',
+    format='parquet'
+) }}
+
 with main_course_list as (
     select 
         url,
@@ -30,7 +35,13 @@ with main_course_list as (
 )
 select 
     main_course_list.url,
-    c17.students current_students,
+    c23.students current_students,
+    c23.students - c22.students P22,
+    c22.students - c21.students P21,
+    c21.students - c20.students P20,
+    c20.students - c19.students P19,
+    c19.students - c18.students P18,
+    c18.students - c17.students P17,
     c17.students - c16.students P16,
     c16.students - c15.students P15,
     c15.students - c14.students P14,
@@ -70,3 +81,9 @@ left join course_students c14 on c14.url = main_course_list.url and c14.batch_no
 left join course_students c15 on c15.url = main_course_list.url and c15.batch_no = '15'
 left join course_students c16 on c16.url = main_course_list.url and c16.batch_no = '16'
 left join course_students c17 on c17.url = main_course_list.url and c17.batch_no = '17'
+left join course_students c18 on c18.url = main_course_list.url and c18.batch_no = '18'
+left join course_students c19 on c19.url = main_course_list.url and c19.batch_no = '19'
+left join course_students c20 on c20.url = main_course_list.url and c20.batch_no = '20'
+left join course_students c21 on c21.url = main_course_list.url and c21.batch_no = '21'
+left join course_students c22 on c22.url = main_course_list.url and c22.batch_no = '22'
+left join course_students c23 on c23.url = main_course_list.url and c23.batch_no = '23'

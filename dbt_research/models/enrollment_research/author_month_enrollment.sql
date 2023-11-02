@@ -1,3 +1,8 @@
+{{ config(
+    materialized='table',
+    format='parquet'
+) }}
+
 with cme as (
     select 
     *
@@ -13,6 +18,13 @@ select
     inst.instructor_name,
     inst.instructor_url,
     count(distinct cme.url) course_count,
+    sum(cme.current_students) current_students,
+    sum(cme.p22) P22,
+    sum(cme.p21) P21,
+    sum(cme.p20) P20,
+    sum(cme.p19) p19,
+    sum(cme.p18) p18,
+    sum(cme.p17) p17,
     sum(cme.p16) p16,
     sum(cme.p15) p15,
     sum(cme.p14) p14,
